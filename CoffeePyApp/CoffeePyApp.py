@@ -131,7 +131,7 @@ Builder.load_string("""
             background_normal: ''
             background_down: ''
             on_press:
-                #root.goto_addnote()
+                root.goto_edit()
 
         Button:
             id: report_button
@@ -161,7 +161,7 @@ Builder.load_string("""
             background_normal: ''
             background_down: ''
             on_press:
-                #root.goto_report()
+                root.goto_del()
         
         Button:
             text: 'Выйти'
@@ -292,7 +292,6 @@ Builder.load_string("""
             size: self.texture_size
             pos_hint: {'x':.75, 'y':.9}
             color: (.25, .22, .19, 1)
-            bcolor: .94, .9, .87, 1
 
 
 
@@ -393,13 +392,262 @@ Builder.load_string("""
             size: self.texture_size
             pos_hint: {'x':.75, 'y':.9}
             color: (.25, .22, .19, 1)
+
+<EditScreen>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'data/fon3.png'
+
+    FloatLayout:
+
+        Label:
+            text: "[i][color=#3E3A37]Учебная практика - Гайдомак Мария (ИСП-925)[/color][/i]"
+            markup: True
+            font_size: '14sp'
+            size_hint: (.5, .05)
+            pos_hint: {'x':.25, 'y':.1}
+
+        Label:
+            id: username_label
+            text: "[b]Пользователь: [/b]"
+            markup: True
+            font_size: '16sp'
+            size_hint: (None, None)
+            halign: 'left'
+            size: self.texture_size
+            pos_hint: {'x':.75, 'y':.9}
+            color: (.25, .22, .19, 1)
             bcolor: .94, .9, .87, 1
 
+        Label:
+            text: '[color=#A6622B]Здесь можно изменить существующую запись[/color]'
+            markup : True
+            font_size : '20sp'
+            size_hint: (1, .1)
+            pos_hint: {'x':0, 'y':.8}
+
+        Label:
+            text: "[color=#A6622B]Дата[/color]"
+            markup : True
+            size_hint: (.25, .1)
+            pos_hint: {'x':.25, 'y':.72}            
+            
+        DataInput:
+            id:date
+            text: '01/01/20'
+            size_hint: (.25, .05)
+            pos_hint: {'x':.25, 'y':.7}
+            multiline: False
+           
+        Label:
+            text: "[color=#A6622B]Текущий обьём[/color]"
+            markup : True
+            size_hint: (.25, .1)
+            pos_hint: {'x':.52, 'y':.72}            
+
+        Label:
+            id: liters_info
+            text: "0.0"
+            color: (.25, .22, .19, 1)
+            markup : True
+            size_hint: (.25, .05)
+            pos_hint: {'x':.52, 'y':.7}   
+            bcolor: .9, .9, .9, 1
+            canvas.before:
+                Color:
+                    rgba: self.bcolor
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            
+        Label:
+            text: "[color=#A6622B]Новый обьём[/color]"
+            markup : True
+            size_hint: (.25, .1)
+            pos_hint: {'x':.52, 'y':.62}  
+
+        FloatInput:
+            id:liters
+            text: '0.0'
+            size_hint: (.25, .05)
+            pos_hint: {'x':.52, 'y':.6}  
+            multiline: False
+
+        Button:
+            id: confirm_edit
+            text: 'Изменить'
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            background_down: '' 
+            size_hint: (.25, .05)
+            pos_hint: {'x':.25, 'y':.6}  
+            on_press:
+                root.confirm_edit()
+            on_release:
+                root.release()
+
+        Button:
+            id: view
+            text: 'Посмотреть'
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            background_down: '' 
+            size_hint: (.15, .05)
+            pos_hint: {'x':.8, 'y':.7}  
+            on_press:
+                root.view()
+            on_release:
+                root.release()
+
+        Button:
+            id: delete
+            text: 'Удалить данную запись'
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            background_down: '' 
+            size_hint: (.25, .05)
+            pos_hint: {'x':.25, 'y':.54}  
+            on_press:
+                root.delete()
+            on_release:
+                root.release()
+
+        Label:
+            id: availiable_dates
+            text: 'Доступные даты'
+            markup: True
+            size: self.texture_size
+            font_size: '14sp'
+            size_hint: (.7, .25)
+            pos_hint: {'x':.15, 'y':.15} 
+            color: (.25, .22, .19, 1)
+            bcolor: .9, .9, .9, 1
+            canvas.before:
+                Color:
+                    rgba: self.bcolor
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        
+        Label:
+            id: info_label
+            text: ''
+            markup: True
+            font_size: '18sp'
+            size_hint: (.6, .1)
+            pos_hint: {'x':.2, 'y':.4} 
+        
+        Button:
+            text: 'Назад'
+            size_hint: (.1, .05)
+            pos_hint: {'x':.8, 'y':.1} 
+            on_press:
+                root.manager.current = 'main'
+
+<DeleteScreen>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'data/fon3.png'
+
+    FloatLayout:
+        
+        Label:
+            text: "[i][color=#3E3A37]Учебная практика - Гайдомак Мария (ИСП-925)[/color][/i]"
+            markup: True
+            font_size: '14sp'
+            size_hint: (.5, .05)
+            pos_hint: {'x':.25, 'y':.1}
+
+        Label:
+            id: username_label
+            text: "[b]Пользователь: [/b]"
+            markup: True
+            font_size: '18sp'
+            size_hint: (None, None)
+            halign: 'left'
+            size: self.texture_size
+            pos_hint: {'x':.3, 'y':.7}
+            color: (.25, .22, .19, 1)
+            bcolor: .94, .9, .87, 1
+
+        Label:
+            text: '[color=#A6622B]Здесь вы можете удалить аккаунт и все данные в нём[/color]'
+            markup : True
+            font_size : '20sp'
+            size_hint: (1, .1)
+            pos_hint: {'x':0, 'y':.8}
+
+        Label:
+            text:'[color=#231C0B]Введите пароль:[/color]'
+            markup : True
+            font_size : '16sp'
+            size_hint: (None, None)
+            halign: 'left'
+            size: self.texture_size
+            pos_hint: {'x':.3, 'y':.65}
+            
+        TextInput:
+            id: passw_enter
+            text: ''
+            size_hint: (.4, .05)
+            pos_hint: {'x':.3, 'y':.6}
+            multiline: False
+            password : True
+
+        Button:
+            id: delete_acc
+            text: 'Удалить аккаунт'
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            background_down: '' 
+            size_hint: (.25, .05)
+            pos_hint: {'x':.25, 'y':.5}  
+            on_press:
+                root.delete_acc()
+            on_release:
+                root.release()
+
+        Button:
+            id: delete_info
+            text: 'Удалить всю информацию'
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            background_down: '' 
+            size_hint: (.25, .05)
+            pos_hint: {'x':.52, 'y':.5}  
+            on_press:
+                root.delete_info()
+            on_release:
+                root.release()
+
+        Label:
+            id: info_label
+            text: ''
+            markup: True
+            font_size: '18sp'
+            size_hint: (.6, .1)
+            pos_hint: {'x':.2, 'y':.4} 
+
+        Button:
+            text: 'Назад'
+            size_hint: (.1, .05)
+            pos_hint: {'x':.8, 'y':.1} 
+            on_press:
+                root.manager.current = 'main'
+        
 """)
 
 user = ''
 
 class LoginScreen(Screen):
+
+    def on_enter(self):
+        self.ids.login_enter.text = ''
+        self.ids.passw_enter.text = ''
 
     def btn_press(self):
         self.users = pd.read_csv('data/users.csv', sep=';', index_col=[0])
@@ -476,6 +724,10 @@ class MainScreen(Screen):
         self.ids.addnote_button.background_normal = ''
         self.ids.report_button.background_color = (.69, .49, .33, 1)
         self.ids.report_button.background_normal = ''
+        self.ids.editnote_button.background_color = (.69, .49, .33, 1)
+        self.ids.editnote_button.background_normal = ''
+        self.ids.delete_button.background_color = (.69, .49, .33, 1)
+        self.ids.delete_button.background_normal = ''
         global user
         self.ids. username_label.text = f"[b]Пользователь: {user}[/b]"
 
@@ -489,11 +741,23 @@ class MainScreen(Screen):
         self.ids.report_button.background_color = (.82, .6, .38, 1.0)
         self.manager.current = 'report'
 
+    def goto_edit(self):
+        self.ids.editnote_button.background_normal = ''
+        self.ids.editnote_button.background_color = (.82, .6, .38, 1.0)
+        self.manager.current = 'edit'
+
+    def goto_del(self):
+        self.ids.delete_button.background_normal = ''
+        self.ids.delete_button.background_color = (.82, .6, .38, 1.0)
+        self.manager.current = 'del'
+
+
 class AddnoteScreen(Screen):
 
     def on_enter(self):
         global user
         self.ids.username_label.text = f"[b]Пользователь: {user}[/b]"
+        self.ids.info_label.text = ""
 
     def confirm(self):
         global user
@@ -511,14 +775,14 @@ class AddnoteScreen(Screen):
 
                 self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
                 try:
-
                     self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
                     self.ids.info_label.text = '[color=#DD1B07]Запись с данной датой уже существует\nНовый объем будет прибавлен к записанному ранее[/color]'
-                except IndexError:
 
+                except IndexError:
                     self.last_index = self.info.count()[0]
                     self.info.loc[self.last_index] = {'user': user, 'date': self.ids.date.text, 'liters': self.ids.liters.text}
                     self.info.to_csv('data\info.csv', sep=';')
+                    self.ids.info_label.text = ""
 
                 else:
                     self.liters = float(self.info.loc[self.index, 'liters'])
@@ -563,6 +827,202 @@ class ReportScreen(Screen):
         self.ids.clean_button.background_color= (.69, .49, .33, 1)
 
 
+class EditScreen(Screen):
+
+    def on_enter(self):
+        global user
+        self.ids.username_label.text = f"[b]Пользователь: {user}[/b]"
+        self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
+        self.dates = ""
+        self.n = 0
+
+        if len(list(self.info[self.info['user'] == user]['date']))>42:
+            self.dates_list = list(self.info[self.info['user'] == user]['date'])[:41] + [list(self.info[self.info['user'] == user]['date'])[-1]]
+            for i in self.dates_list:
+                self.n +=1
+                if self.n == 7:
+                    self.dates += i+'\n'
+                    self.n =0
+                elif i == self.dates_list[-2]:
+                    self.dates += i+' .. '
+                else:
+                    self.dates += i+',  '
+        else:
+            self.dates_list = list(self.info[self.info['user'] == user]['date'])
+            for i in self.dates_list:
+                self.n +=1
+                if self.n == 7:
+                    self.dates += i+'\n'
+                    self.n =0
+                else:
+                    self.dates += i+',  '
+        self.ids.availiable_dates.text = f"Доступные даты:\n{self.dates}"
+        
+    def confirm_edit(self):
+        self.ids.confirm_edit.background_normal = ''
+        self.ids.confirm_edit.background_color = (.82, .6, .38, 1.0)
+        try:
+            datetime.strptime(self.ids.date.text, "%d/%m/%y")
+        except:
+            self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
+        else:
+            self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
+            try:
+                self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
+
+            except IndexError:
+                self.ids.info_label.text = '[color=#DD1B07]Записи с такой датой нет[/color]'
+
+            else:
+                self.info.loc[self.index, 'liters'] = self.ids.liters.text
+                self.ids.liters_info.text =  self.ids.liters.text
+                self.info.to_csv('data\info.csv', sep=';')
+
+
+    def view(self):
+        self.ids.view.background_normal = ''
+        self.ids.view.background_color = (.82, .6, .38, 1.0)
+
+        try:
+            datetime.strptime(self.ids.date.text, "%d/%m/%y")
+
+        except:
+            self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
+        else:
+            self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
+            try:
+                self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
+
+            except IndexError:
+                self.ids.info_label.text = '[color=#DD1B07]Записи с такой датой нет[/color]'
+
+            else:
+                self.ids.liters_info.text =  str(self.info.loc[self.index, 'liters'])
+
+
+
+    def delete(self):
+        self.ids.delete.background_normal = ''
+        self.ids.delete.background_color = (.82, .6, .38, 1.0)
+        try:
+            datetime.strptime(self.ids.date.text, "%d/%m/%y")
+        except:
+            self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
+        else:
+            self.info = pd.read_csv('data/info.csv', sep=';', index_col=[0])
+            try:
+                self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
+
+            except IndexError:
+                self.ids.info_label.text = '[color=#DD1B07]Записи с такой датой нет[/color]'
+
+            else:
+                self.info.drop(self.index, inplace=True)
+                self.info.index = range(0, self.info.count()[0])
+                self.info.index.name = 'index'
+                self.ids.liters_info.text =  '0.0'
+                self.info.to_csv('data/info.csv', sep=';')
+                self.dates = ""
+                self.n = 0
+
+                if len(list(self.info[self.info['user'] == user]['date']))>42:
+                    self.dates_list = list(self.info[self.info['user'] == user]['date'])[:41] + [list(self.info[self.info['user'] == user]['date'])[-1]]
+                    for i in self.dates_list:
+                        self.n +=1
+                        if self.n == 7:
+                            self.dates += i+'\n'
+                            self.n =0
+                        elif i == self.dates_list[-2]:
+                            self.dates += i+' .. '
+                        else:
+                            self.dates += i+',  '
+                else:
+                    self.dates_list = list(self.info[self.info['user'] == user]['date'])
+                    for i in self.dates_list:
+                        self.n +=1
+                        if self.n == 7:
+                            self.dates += i+'\n'
+                            self.n =0
+                        else:
+                            self.dates += i+',  '
+                self.ids.availiable_dates.text = f"Доступные даты:\n{self.dates}"
+
+
+
+    def release(self):
+        self.ids.confirm_edit.background_color = (.69, .49, .33, 1)
+        self.ids.confirm_edit.background_normal = ''
+        self.ids.view.background_color = (.69, .49, .33, 1)
+        self.ids.view.background_normal = ''
+        self.ids.delete.background_color = (.69, .49, .33, 1)
+        self.ids.delete.background_normal = ''
+
+class DeleteScreen(Screen):
+    def on_enter(self):
+        global user
+        self.ids.username_label.text = f"[b]Пользователь: {user}[/b]"
+        self.ids.delete_info.background_color = (.69, .49, .33, 1)
+        self.ids.delete_info.background_normal = ''
+        self.ids.delete_acc.background_color = (.69, .49, .33, 1)
+        self.ids.delete_acc.background_normal = ''
+        self.ids.info_label.text = ''
+        self.ids.passw_enter.text = ''
+
+    def delete_acc(self):
+        self.ids.delete_acc.background_normal = ''
+        self.ids.delete_acc.background_color = (.82, .6, .38, 1.0)
+        self.users = pd.read_csv('data/users.csv', sep=';', index_col=[0])
+
+        temp_passw = self.users[self.users.user == user]['pass'].tolist()[0]
+        self.index = self.users[self.users.user == user].index[0]
+        if temp_passw == self.ids.passw_enter.text:
+
+            self.users.drop(self.index, inplace=True)
+            self.users.to_csv('data/users.csv', sep=';')
+            self.info = pd.read_csv('data/info.csv', sep=';', index_col=[0])
+            for i in self.info[self.info['user'] == user].index:
+                self.info.drop(i, inplace=True)
+            self.info.index = range(0, self.info.count()[0])
+            self.info.index.name = 'index'
+            self.info.to_csv('data\info.csv', sep=';')
+            self.manager.current = 'login'
+
+        else:
+            self.ids.info_label.text = '[color=#DD1B07]Неверный пароль[/color]'
+            print('Неверный пароль')
+
+    def delete_info(self):
+        global user
+        self.ids.delete_info.background_normal = ''
+        self.ids.delete_info.background_color = (.82, .6, .38, 1.0)
+
+        self.users = pd.read_csv('data/users.csv', sep=';', index_col=[0])
+        temp_passw = self.users[self.users.user == user]['pass'].tolist()[0]
+        self.index = self.users[self.users.user == user].index[0]
+
+        if temp_passw == self.ids.passw_enter.text:
+
+            self.info = pd.read_csv('data/info.csv', sep=';', index_col=[0])
+            for i in self.info[self.info['user'] == user].index:
+                self.info.drop(i, inplace=True)
+            self.info.index = range(0, self.info.count()[0])
+            self.info.index.name = 'index'
+            self.info.to_csv('data\info.csv', sep=';')
+            self.ids.info_label.text = '[color=#DD1B07]Информация удалена[/color]'
+
+        else:
+            self.ids.info_label.text = '[color=#DD1B07]Неверный пароль[/color]'
+            print('Неверный пароль')
+
+
+    def release(self):
+        self.ids.delete_info.background_color = (.69, .49, .33, 1)
+        self.ids.delete_info.background_normal = ''
+        self.ids.delete_acc.background_color = (.69, .49, .33, 1)
+        self.ids.delete_acc.background_normal = ''
+
+
+
 """
 Поля с ограничением ввода:
 FloatInput - только цифры и . (точка один раз)
@@ -594,6 +1054,9 @@ sm.add_widget(LoginScreen(name='login'))
 sm.add_widget(MainScreen(name='main'))
 sm.add_widget(AddnoteScreen(name='add'))
 sm.add_widget(ReportScreen(name='report'))
+sm.add_widget(EditScreen(name='edit'))
+sm.add_widget(DeleteScreen(name='del'))
+
 
 class CoffeeApp(App):
 
