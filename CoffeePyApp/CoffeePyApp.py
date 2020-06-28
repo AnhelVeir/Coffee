@@ -98,6 +98,77 @@ Builder.load_string("""
             pos_hint: {'x':.3, 'y':.45}
             multiline: False
             password : True
+
+
+<MainScreen>:
+
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'data/fon2.png'
+
+    FloatLayout:
+        Button:
+            id: addnote_button
+            text: 'Добавить запись'
+            font_size : '20sp'
+            size_hint: (.25, .1)
+            pos_hint: {'x':.2, 'y':.6}
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            background_down: ''
+            on_press:
+                root.goto_addnote()
+
+        Button:
+            id: editnote_button
+            text: 'Изменить запись'
+            font_size : '20sp'
+            size_hint: (.25, .1)
+            pos_hint: {'x':.2, 'y':.4}
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            background_down: ''
+            on_press:
+                #root.goto_addnote()
+
+        Button:
+            id: report_button
+            pos_hint: {'x':.2, 'y':.6}
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            text: 'Посмотреть отчёт'
+            font_size : '20sp'
+            size_hint: (.25, .1)
+            pos_hint: {'x':.55, 'y':.6}
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            background_down: ''
+            on_press:
+                root.goto_report()
+
+        Button:
+            id: delete_button
+            pos_hint: {'x':.2, 'y':.6}
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            text: 'Удалить аккаунт'
+            font_size : '20sp'
+            size_hint: (.25, .1)
+            pos_hint: {'x':.55, 'y':.4}
+            background_color: (.69, .49, .33, 1)
+            background_normal: ''
+            background_down: ''
+            on_press:
+                #root.goto_report()
+        
+        Button:
+            text: 'Выйти'
+            on_press:
+                root.manager.current = 'login'
+            size_hint: (.1, .05)
+            pos_hint: {'x':.85, 'y':.1}
 """)
 
 user = ''
@@ -124,8 +195,7 @@ class LoginScreen(Screen):
                 self.ids.enter_button.background_color = (.94, .66, .39, 1)
                 global user
                 user = self.ids.login_enter.text
-                #! Прописать переход к след. экрану
-                #self.manager.current = 'next_screen'
+                self.manager.current = 'main'
                 print('Вход')
 
             else:
@@ -173,9 +243,29 @@ class LoginScreen(Screen):
 
             self.ids.info_label.text = '[color=#DD1B07]Пользователь с таким именем уже зарегистрирован[/color]'
 
+class MainScreen(Screen):
+
+    def on_enter(self):
+        self.ids.addnote_button.background_color = (.69, .49, .33, 1)
+        self.ids.addnote_button.background_normal = ''
+        self.ids.report_button.background_color = (.69, .49, .33, 1)
+        self.ids.report_button.background_normal = ''
+
+    def goto_addnote(self):
+        self.ids.addnote_button.background_normal = ''
+        self.ids.addnote_button.background_color = (.82, .6, .38, 1.0)
+        #self.manager.current = 'add'
+
+    def goto_report(self):
+        self.ids.report_button.background_normal = ''
+        self.ids.report_button.background_color = (.82, .6, .38, 1.0)
+        #self.manager.current = 'report'
+
+
 
 sm = ScreenManager(transition=FadeTransition(duration=.5))
 sm.add_widget(LoginScreen(name='login'))
+sm.add_widget(MainScreen(name='main'))
 
 class CoffeeApp(App):
 
