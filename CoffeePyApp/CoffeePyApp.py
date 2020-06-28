@@ -99,7 +99,6 @@ Builder.load_string("""
             multiline: False
             password : True
 
-
 <MainScreen>:
 
     canvas.before:
@@ -292,8 +291,6 @@ Builder.load_string("""
             size: self.texture_size
             pos_hint: {'x':.75, 'y':.9}
             color: (.25, .22, .19, 1)
-
-
 
 <ReportScreen>:
     canvas.before:
@@ -1025,7 +1022,6 @@ class DeleteScreen(Screen):
         self.ids.delete_info.background_normal = ''
         self.ids.delete_acc.background_color = (.69, .49, .33, 1)
         self.ids.delete_acc.background_normal = ''
-
 
 
 """
