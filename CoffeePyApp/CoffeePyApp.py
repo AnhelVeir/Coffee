@@ -39,6 +39,7 @@ Builder.load_string("""
             font_size: '18sp'
             size_hint: (.6, .1)
             pos_hint: {'x':.2, 'y':.15} 
+
         Button:
             id: enter_button
             size_hint: (.2, .08)
@@ -51,7 +52,6 @@ Builder.load_string("""
                 root.btn_press()
             on_release:
                 root.btn_release()
-
             
         Button:
             id: register_button
@@ -70,9 +70,10 @@ Builder.load_string("""
             text:'[color=#231C0B]Имя пользователя[/color]'
             markup : True
             font_size : '16sp'
-            size_hint: (.5, .1)
-            halign:'left'
-            pos_hint:{'x':.14, 'y':.62}
+            size_hint: (None, None)
+            halign: 'left'
+            size: self.texture_size
+            pos_hint:{'x':.3, 'y':.65}
             
         TextInput:
             id: login_enter
@@ -85,9 +86,10 @@ Builder.load_string("""
             text:'[color=#231C0B]Пароль[/color]'
             markup : True
             font_size : '16sp'
-            size_hint: (.55, .1)
+            size_hint: (None, None)
             halign: 'left'
-            pos_hint: {'x':.06, 'y':.47}
+            size: self.texture_size
+            pos_hint: {'x':.3, 'y':.5}
             
         TextInput:
             id: passw_enter
