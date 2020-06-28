@@ -271,9 +271,9 @@ Builder.load_string("""
             id: info_label
             text: ''
             markup : True
-            font_size : '18sp'
+            font_size : '16sp'
             size_hint: (1, .1)
-            pos_hint: {'x':0, 'y':.2}    
+            pos_hint: {'x':0, 'y':.15}    
             
         Label:
             text: "[i][color=#3E3A37]Учебная практика - Гайдомак Мария (ИСП-925)[/color][/i]"
@@ -503,14 +503,29 @@ class AddnoteScreen(Screen):
         except:
             self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
         else:
+
             if self.ids.liters.text == "":
+
                 self.ids.info_label.text = '[color=#DD1B07]Введите объем[/color]'
             else:
+
                 self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
-                self.last_index = self.info.count()[0]
-                self.info.loc[self.last_index] = {'user': user, 'date': self.ids.date.text, 'liters': self.ids.liters.text}
-                self.manager.current = 'main'
-                self.info.to_csv('data\info.csv', sep=';')
+                try:
+
+                    self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
+                    self.ids.info_label.text = '[color=#DD1B07]Запись с данной датой уже существует\nНовый объем будет прибавлен к записанному ранее[/color]'
+                except IndexError:
+
+                    self.last_index = self.info.count()[0]
+                    self.info.loc[self.last_index] = {'user': user, 'date': self.ids.date.text, 'liters': self.ids.liters.text}
+                    self.info.to_csv('data\info.csv', sep=';')
+
+                else:
+                    self.liters = float(self.info.loc[self.index, 'liters'])
+                    self.liters += float(self.ids.liters.text)
+                    self.info.loc[self.index, 'liters'] = self.liters
+                    self.info.to_csv('data\info.csv', sep=';')
+                    
         finally:
             self.ids.date.text = '01/01/20'
             self.ids.liters.text = '0.0'
