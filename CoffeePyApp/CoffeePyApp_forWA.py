@@ -648,7 +648,6 @@ class LoginScreen(Screen):
     def on_enter(self):
         self.ids.login_enter.text = ''
         self.ids.passw_enter.text = ''
-        self.ids.info_label.text = ''
 
     def btn_press(self):
         self.users = pd.read_csv('data/users.csv', sep=';', index_col=[0])
@@ -768,7 +767,7 @@ class AddnoteScreen(Screen):
         except:
             self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
         else:
-            self.ids.info_label.text = ''
+
             if self.ids.liters.text == "":
 
                 self.ids.info_label.text = '[color=#DD1B07]Введите объем[/color]'
@@ -867,7 +866,6 @@ class EditScreen(Screen):
         except:
             self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
         else:
-            self.ids.info_label.text = ''
             self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
             try:
                 self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
@@ -879,7 +877,6 @@ class EditScreen(Screen):
                 self.info.loc[self.index, 'liters'] = self.ids.liters.text
                 self.ids.liters_info.text =  self.ids.liters.text
                 self.info.to_csv('data\info.csv', sep=';')
-                self.ids.info_label.text = ''
 
 
     def view(self):
@@ -912,7 +909,6 @@ class EditScreen(Screen):
         except:
             self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
         else:
-            self.ids.info_label.text = ''
             self.info = pd.read_csv('data/info.csv', sep=';', index_col=[0])
             try:
                 self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
@@ -921,7 +917,6 @@ class EditScreen(Screen):
                 self.ids.info_label.text = '[color=#DD1B07]Записи с такой датой нет[/color]'
 
             else:
-                self.ids.info_label.text = ''
                 self.info.drop(self.index, inplace=True)
                 self.info.index = range(0, self.info.count()[0])
                 self.info.index.name = 'index'
