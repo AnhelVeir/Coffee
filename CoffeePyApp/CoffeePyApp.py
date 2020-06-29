@@ -438,51 +438,30 @@ Builder.load_string("""
         Label:
             text: "[color=#A6622B]Дата[/color]"
             markup : True
-<<<<<<< HEAD
             size_hint: (.175, .1)
             pos_hint: {'x':.2, 'y':.72}            
-=======
-            size_hint: (.25, .1)
-            pos_hint: {'x':.25, 'y':.72}            
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             
         DataInput:
             id:date
             text: '01/01/20'
-<<<<<<< HEAD
             size_hint: (.175, .05)
             pos_hint: {'x':.2, 'y':.7}
-=======
-            size_hint: (.25, .05)
-            pos_hint: {'x':.25, 'y':.7}
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             multiline: False
            
         Label:
             text: "[color=#A6622B]Текущий обьём[/color]"
             markup : True
-<<<<<<< HEAD
             size_hint: (.175, .1)
             pos_hint: {'x':.4, 'y':.72}            
-=======
-            size_hint: (.25, .1)
-            pos_hint: {'x':.52, 'y':.72}            
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
 
         Label:
             id: liters_info
             text: "0.0"
-            color: (.25, .22, .19, 1)
+            color: (.2, .22, .19, 1)
             markup : True
-<<<<<<< HEAD
             size_hint: (.175, .05)
             pos_hint: {'x':.4, 'y':.7}   
             bcolor: .95, .95, .95, 1
-=======
-            size_hint: (.25, .05)
-            pos_hint: {'x':.52, 'y':.7}   
-            bcolor: .9, .9, .9, 1
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             canvas.before:
                 Color:
                     rgba: self.bcolor
@@ -494,21 +473,13 @@ Builder.load_string("""
             text: "[color=#A6622B]Новый обьём[/color]"
             markup : True
             size_hint: (.25, .1)
-<<<<<<< HEAD
             pos_hint: {'x':.6, 'y':.72}  
-=======
-            pos_hint: {'x':.52, 'y':.62}  
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
 
         FloatInput:
             id:liters
             text: '0.0'
             size_hint: (.25, .05)
-<<<<<<< HEAD
             pos_hint: {'x':.6, 'y':.7}  
-=======
-            pos_hint: {'x':.52, 'y':.6}  
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             multiline: False
 
         Button:
@@ -517,13 +488,8 @@ Builder.load_string("""
             background_color: (.69, .49, .33, 1)
             background_normal: ''
             background_down: '' 
-<<<<<<< HEAD
             size_hint: (.175, .05)
             pos_hint: {'x':.2, 'y':.65}  
-=======
-            size_hint: (.25, .05)
-            pos_hint: {'x':.25, 'y':.6}  
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             on_press:
                 root.view()
             on_release:
@@ -535,13 +501,8 @@ Builder.load_string("""
             background_color: (.69, .49, .33, 1)
             background_normal: ''
             background_down: '' 
-<<<<<<< HEAD
             size_hint: (.175, .05)
             pos_hint: {'x':.4, 'y':.65}  
-=======
-            size_hint: (.15, .05)
-            pos_hint: {'x':.8, 'y':.7}  
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             on_press:
                 root.confirm_edit()
             on_release:
@@ -554,11 +515,7 @@ Builder.load_string("""
             background_normal: ''
             background_down: '' 
             size_hint: (.25, .05)
-<<<<<<< HEAD
             pos_hint: {'x':.6, 'y':.65}  
-=======
-            pos_hint: {'x':.25, 'y':.54}  
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             on_press:
                 root.delete()
             on_release:
@@ -583,11 +540,7 @@ Builder.load_string("""
         Button:
             text: 'Назад'
             size_hint: (.1, .05)
-<<<<<<< HEAD
             pos_hint: {'x':.8, 'y':.05} 
-=======
-            pos_hint: {'x':.8, 'y':.1} 
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             on_press:
                 root.manager.current = 'main'
 
@@ -687,11 +640,8 @@ Builder.load_string("""
 """)
 
 user = ''
-<<<<<<< HEAD
 users = pd.read_csv('.data\\users.csv', sep=';', index_col=[0])
 info = pd.read_csv('.data\\info.csv', sep=';', index_col=[0])
-=======
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
 
 class LoginScreen(Screen):
 
@@ -701,20 +651,13 @@ class LoginScreen(Screen):
         self.ids.info_label.text = ''
 
     def btn_press(self):
-        self.users = pd.read_csv('data/users.csv', sep=';', index_col=[0])
-
+        global users
         self.ids.enter_button.text = 'Проверка'
         self.ids.enter_button.background_normal = ''
         self.ids.enter_button.background_color = (.82, .6, .38, 1.0)
 
         try:
-<<<<<<< HEAD
             temp_passw = users[users.user == self.ids.login_enter.text]['pass'].tolist()[0]
-=======
-            temp_passw = self.users[self.users.user == self.ids.login_enter.text]['pass'].tolist()[0]
-            print(temp_passw)
-            print(self.ids.passw_enter.text)
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             
             if temp_passw == self.ids.passw_enter.text:
                 self.ids.enter_button.text = 'Войти'
@@ -743,14 +686,13 @@ class LoginScreen(Screen):
         self.ids.register_button.background_color = (.94, .66, .39, 1)
 
     def register(self):
+        global users
         self.ids.register_button.text = 'Проверка'
         self.ids.register_button.background_normal = ''
         self.ids.register_button.background_color = (.82, .6, .38, 1.0)
 
-        self.users = pd.read_csv('data/users.csv', sep=';', index_col=[0])
-
         try:
-            self.users[self.users.user == self.ids.login_enter.text]['pass'].tolist()[0]
+            users[users.user == self.ids.login_enter.text]['pass'].tolist()[0]
 
         except IndexError:
 
@@ -758,14 +700,10 @@ class LoginScreen(Screen):
                 self.ids.info_label.text = '[color=#DD1B07]Имя пользователя и пароль должны быть не меньше 4 символов[/color]'
 
             else:
-                self.last_index = self.users.count()[0]
-                self.users.loc[self.last_index] = {'user': self.ids.login_enter.text, 'pass': self.ids.passw_enter.text}
+                self.last_index = users.count()[0]
+                users.loc[self.last_index] = {'user': self.ids.login_enter.text, 'pass': self.ids.passw_enter.text}
                 self.ids.info_label.text = '[color=#DD1B07]Вы зарегистрированы. Нажмите "Войти"[/color]'
-<<<<<<< HEAD
                 users.to_csv('.data\\users.csv', sep=';')
-=======
-                self.users.to_csv('data/users.csv', sep=';')
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
         else:
 
             self.ids.info_label.text = '[color=#DD1B07]Пользователь с таким именем уже зарегистрирован[/color]'
@@ -814,11 +752,7 @@ class AddnoteScreen(Screen):
 
     def confirm(self):
         global user
-<<<<<<< HEAD
         global info
-=======
-        print(user)
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
         try:
             datetime.strptime(self.ids.date.text, "%d/%m/%y")
         except:
@@ -829,34 +763,21 @@ class AddnoteScreen(Screen):
 
                 self.ids.info_label.text = '[color=#DD1B07]Введите объем[/color]'
             else:
-
-                self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
                 try:
-                    self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
+                    self.index = info[(info['user'] == user) & (info['date'] == self.ids.date.text)].index[0]
                     self.ids.info_label.text = '[color=#DD1B07]Запись с данной датой уже существует\nНовый объем будет прибавлен к записанному ранее[/color]'
 
                 except IndexError:
-<<<<<<< HEAD
                     self.last_index = info.count()[0]
                     info.loc[self.last_index] = {'user': user, 'date': self.ids.date.text, 'liters': float(self.ids.liters.text)}
                     info.to_csv('.data\\info.csv', sep=';')
-=======
-                    self.last_index = self.info.count()[0]
-                    self.info.loc[self.last_index] = {'user': user, 'date': self.ids.date.text, 'liters': self.ids.liters.text}
-                    self.info.to_csv('data\info.csv', sep=';')
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
                     self.ids.info_label.text = ""
 
                 else:
-                    self.liters = float(self.info.loc[self.index, 'liters'])
+                    self.liters = float(info.loc[self.index, 'liters'])
                     self.liters += float(self.ids.liters.text)
-<<<<<<< HEAD
                     info.loc[self.index, 'liters'] = self.liters
                     info.to_csv('.data\\info.csv', sep=';')
-=======
-                    self.info.loc[self.index, 'liters'] = self.liters
-                    self.info.to_csv('data\info.csv', sep=';')
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
                     
         finally:
             self.ids.date.text = '01/01/20'
@@ -867,11 +788,11 @@ class ReportScreen(Screen):
     def on_enter(self):
         global user
         self.ids.username_label.text = f"[b]Пользователь: {user}[/b]"
+        self.ids.report_text.text = "..."
         
     def give_report(self):
         global user
-        self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
-        self.info.date = pd.to_datetime(self.info.date)
+        global info
         try:
             self.ids.plot.source = ""
             self.ids.plot.opacity= 0
@@ -881,7 +802,6 @@ class ReportScreen(Screen):
             self.ids.report_text.text = "Некорректно введена дата"
             self.ids.report_text.color = (.87, .08, 0, 1)
         else:
-<<<<<<< HEAD
 
             self.info_part = info.copy()
             self.info_part.date = self.info_part.date.apply(lambda x: datetime.strptime(x, "%d/%m/%y"))
@@ -905,11 +825,6 @@ class ReportScreen(Screen):
 
         finally:
             info = pd.read_csv('.data\\info.csv', sep=';', index_col=[0])
-=======
-            self.summ = self.info[(self.info.date >= self.dt_s) & (self.info.date <= self.dt_e)]['liters'].sum()
-            self.ids.report_text.text = f"С {self.ids.start_date.text} по {self.ids.end_date.text} было продано {round(self.summ, 4)} литров кофе"
-            self.ids.confirm_report.background_color= (.59, .39, .23, 1)
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
 
     def clean(self):
         self.ids.start_date.text = '01/01/20'
@@ -929,11 +844,10 @@ class EditScreen(Screen):
 
     def on_enter(self):
         global user
+        global info
         self.ids.username_label.text = f"[b]Пользователь: {user}[/b]"
-        self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
         self.dates = ""
         self.n = 0
-<<<<<<< HEAD
         self.ids.info_label.text = ""
         plt.figure(figsize=(10,5), tight_layout=True)
         sns.set(style="darkgrid")
@@ -944,32 +858,9 @@ class EditScreen(Screen):
         self.ids.plot.reload()
         self.ids.plot.source = "data\\plot.png"
         self.ids.plot.opacity = 1
-=======
-
-        if len(list(self.info[self.info['user'] == user]['date']))>42:
-            self.dates_list = list(self.info[self.info['user'] == user]['date'])[:41] + [list(self.info[self.info['user'] == user]['date'])[-1]]
-            for i in self.dates_list:
-                self.n +=1
-                if self.n == 7:
-                    self.dates += i+'\n'
-                    self.n =0
-                elif i == self.dates_list[-2]:
-                    self.dates += i+' .. '
-                else:
-                    self.dates += i+',  '
-        else:
-            self.dates_list = list(self.info[self.info['user'] == user]['date'])
-            for i in self.dates_list:
-                self.n +=1
-                if self.n == 7:
-                    self.dates += i+'\n'
-                    self.n =0
-                else:
-                    self.dates += i+',  '
-        self.ids.availiable_dates.text = f"Доступные даты:\n{self.dates}"
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
         
     def confirm_edit(self):
+        global info
         self.ids.confirm_edit.background_normal = ''
         self.ids.confirm_edit.background_color = (.82, .6, .38, 1.0)
         try:
@@ -978,23 +869,16 @@ class EditScreen(Screen):
             self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
         else:
             self.ids.info_label.text = ''
-            self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
             try:
-                self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
+                self.index = info[(info['user'] == user) & (info['date'] == self.ids.date.text)].index[0]
 
             except IndexError:
                 self.ids.info_label.text = '[color=#DD1B07]Записи с такой датой нет[/color]'
 
             else:
-<<<<<<< HEAD
                 info.loc[self.index, 'liters'] = float(self.ids.liters.text)
                 self.ids.liters_info.text =  self.ids.liters.text
                 info.to_csv('.data\\info.csv', sep=';')
-=======
-                self.info.loc[self.index, 'liters'] = self.ids.liters.text
-                self.ids.liters_info.text =  self.ids.liters.text
-                self.info.to_csv('data\info.csv', sep=';')
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
                 self.ids.info_label.text = ''
                 plt.figure(figsize=(10,5), tight_layout=True)
                 sns.set(style="darkgrid")
@@ -1009,6 +893,7 @@ class EditScreen(Screen):
     def view(self):
         self.ids.view.background_normal = ''
         self.ids.view.background_color = (.82, .6, .38, 1.0)
+        global info
 
         try:
             datetime.strptime(self.ids.date.text, "%d/%m/%y")
@@ -1016,41 +901,39 @@ class EditScreen(Screen):
         except:
             self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
         else:
-            self.info = pd.read_csv('data\info.csv', sep=';', index_col=[0])
             try:
-                self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
+                self.index = info[(info['user'] == user) & (info['date'] == self.ids.date.text)].index[0]
 
             except IndexError:
                 self.ids.info_label.text = '[color=#DD1B07]Записи с такой датой нет[/color]'
 
             else:
-                self.ids.liters_info.text =  str(self.info.loc[self.index, 'liters'])
+                self.ids.liters_info.text =  str(info.loc[self.index, 'liters'])
 
 
 
     def delete(self):
         self.ids.delete.background_normal = ''
         self.ids.delete.background_color = (.82, .6, .38, 1.0)
+        global info
         try:
             datetime.strptime(self.ids.date.text, "%d/%m/%y")
         except:
             self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
         else:
             self.ids.info_label.text = ''
-            self.info = pd.read_csv('data/info.csv', sep=';', index_col=[0])
             try:
-                self.index = self.info[(self.info['user'] == user) & (self.info['date'] == self.ids.date.text)].index[0]
+                self.index = info[(info['user'] == user) & (info['date'] == self.ids.date.text)].index[0]
 
             except IndexError:
                 self.ids.info_label.text = '[color=#DD1B07]Записи с такой датой нет[/color]'
 
             else:
                 self.ids.info_label.text = ''
-                self.info.drop(self.index, inplace=True)
-                self.info.index = range(0, self.info.count()[0])
-                self.info.index.name = 'index'
+                info.drop(self.index, inplace=True)
+                info.index = range(0, info.count()[0])
+                info.index.name = 'index'
                 self.ids.liters_info.text =  '0.0'
-<<<<<<< HEAD
                 info.to_csv('.data\\info.csv', sep=';')
                 plt.figure(figsize=(10,5), tight_layout=True)
                 sns.set(style="darkgrid")
@@ -1061,33 +944,6 @@ class EditScreen(Screen):
                 self.ids.plot.reload()
                 self.ids.plot.source = "data\\plot.png"
                 self.ids.plot.opacity = 1
-=======
-                self.info.to_csv('data/info.csv', sep=';')
-                self.dates = ""
-                self.n = 0
-
-                if len(list(self.info[self.info['user'] == user]['date']))>42:
-                    self.dates_list = list(self.info[self.info['user'] == user]['date'])[:41] + [list(self.info[self.info['user'] == user]['date'])[-1]]
-                    for i in self.dates_list:
-                        self.n +=1
-                        if self.n == 7:
-                            self.dates += i+'\n'
-                            self.n =0
-                        elif i == self.dates_list[-2]:
-                            self.dates += i+' .. '
-                        else:
-                            self.dates += i+',  '
-                else:
-                    self.dates_list = list(self.info[self.info['user'] == user]['date'])
-                    for i in self.dates_list:
-                        self.n +=1
-                        if self.n == 7:
-                            self.dates += i+'\n'
-                            self.n =0
-                        else:
-                            self.dates += i+',  '
-                self.ids.availiable_dates.text = f"Доступные даты:\n{self.dates}"
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
 
 
 
@@ -1111,15 +967,15 @@ class DeleteScreen(Screen):
         self.ids.passw_enter.text = ''
 
     def delete_acc(self):
+        global users
+        global info
         self.ids.delete_acc.background_normal = ''
         self.ids.delete_acc.background_color = (.82, .6, .38, 1.0)
-        self.users = pd.read_csv('data/users.csv', sep=';', index_col=[0])
 
-        temp_passw = self.users[self.users.user == user]['pass'].tolist()[0]
-        self.index = self.users[self.users.user == user].index[0]
+        temp_passw = users[users.user == user]['pass'].tolist()[0]
+        self.index = users[users.user == user].index[0]
         if temp_passw == self.ids.passw_enter.text:
 
-<<<<<<< HEAD
             users.drop(self.index, inplace=True)
             users.to_csv('.data\\users.csv', sep=';')
             info = pd.read_csv('.data\\info.csv', sep=';', index_col=[0])
@@ -1128,16 +984,6 @@ class DeleteScreen(Screen):
             info.index = range(0, info.count()[0])
             info.index.name = 'index'
             info.to_csv('.data\\info.csv', sep=';')
-=======
-            self.users.drop(self.index, inplace=True)
-            self.users.to_csv('data/users.csv', sep=';')
-            self.info = pd.read_csv('data/info.csv', sep=';', index_col=[0])
-            for i in self.info[self.info['user'] == user].index:
-                self.info.drop(i, inplace=True)
-            self.info.index = range(0, self.info.count()[0])
-            self.info.index.name = 'index'
-            self.info.to_csv('data\info.csv', sep=';')
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             self.manager.current = 'login'
 
         else:
@@ -1145,29 +991,21 @@ class DeleteScreen(Screen):
 
     def delete_info(self):
         global user
+        global users
+        global info
         self.ids.delete_info.background_normal = ''
         self.ids.delete_info.background_color = (.82, .6, .38, 1.0)
 
-        self.users = pd.read_csv('data/users.csv', sep=';', index_col=[0])
-        temp_passw = self.users[self.users.user == user]['pass'].tolist()[0]
-        self.index = self.users[self.users.user == user].index[0]
+        temp_passw = users[users.user == user]['pass'].tolist()[0]
+        self.index = users[users.user == user].index[0]
 
         if temp_passw == self.ids.passw_enter.text:
 
-<<<<<<< HEAD
             for i in info[info['user'] == user].index:
                 info.drop(i, inplace=True)
             info.index = range(0, info.count()[0])
             info.index.name = 'index'
             info.to_csv('.data\\info.csv', sep=';')
-=======
-            self.info = pd.read_csv('data/info.csv', sep=';', index_col=[0])
-            for i in self.info[self.info['user'] == user].index:
-                self.info.drop(i, inplace=True)
-            self.info.index = range(0, self.info.count()[0])
-            self.info.index.name = 'index'
-            self.info.to_csv('data\info.csv', sep=';')
->>>>>>> parent of b9d76f7... Улучшен дизайн экрана "Внести изменения "
             self.ids.info_label.text = '[color=#DD1B07]Информация удалена[/color]'
 
         else:
