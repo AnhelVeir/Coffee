@@ -376,7 +376,7 @@ Builder.load_string("""
 
         Image:
             id: plot
-            source: ''
+            source: '.data\\partplot.png'
             size_hint: (1, .48)
             pos_hint: {'x':0, 'y':.15} 
             color: .84, .8, .79, 1
@@ -523,7 +523,7 @@ Builder.load_string("""
 
         Image:
             id: plot
-            source: ''
+            source: '.data\\plot.png'
             size_hint: (1, .5)
             pos_hint: {'x':0, 'y':.12} 
             color: .84, .8, .79, 1
@@ -754,22 +754,29 @@ class AddnoteScreen(Screen):
         global user
         global info
         try:
-            datetime.strptime(self.ids.date.text, "%d/%m/%y")
+            self.date = datetime.strptime(self.ids.date.text, "%d/%m/%y")
         except:
             self.ids.info_label.text = '[color=#DD1B07]Некорректно введена дата[/color]'
         else:
             self.ids.info_label.text = ''
+            self.date = self.date.strftime("%d/%m/%y")
             if self.ids.liters.text == "":
 
                 self.ids.info_label.text = '[color=#DD1B07]Введите объем[/color]'
             else:
                 try:
-                    self.index = info[(info['user'] == user) & (info['date'] == self.ids.date.text)].index[0]
+                    self.index = info[(info['user'] == user) & (info['date'] == self.date)].index[0]
                     self.ids.info_label.text = '[color=#DD1B07]Запись с данной датой уже существует\nНовый объем будет прибавлен к записанному ранее[/color]'
 
                 except IndexError:
                     self.last_index = info.count()[0]
-                    info.loc[self.last_index] = {'user': user, 'date': self.ids.date.text, 'liters': float(self.ids.liters.text)}
+                    info.loc[self.last_index] = {'user': user, 'date': self.date, 'liters': float(self.ids.liters.text)}
+                    info['date'] = info['date'].apply(lambda x: datetime.strptime(x, "%d/%m/%y"))
+                    info = info.sort_values(by = ['date'])
+                    info['date'] = info['date'].apply(lambda x: x.strftime("%d/%m/%y"))
+                    info = info.reset_index()
+                    del info['index']
+                    info.index.name= 'index'
                     info.to_csv('.data\\info.csv', sep=';')
                     self.ids.info_label.text = ""
 
@@ -794,8 +801,6 @@ class ReportScreen(Screen):
         global user
         global info
         try:
-            self.ids.plot.source = ""
-            self.ids.plot.opacity= 0
             self.dt_s = datetime.strptime(self.ids.start_date.text, "%d/%m/%y")
             self.dt_e = datetime.strptime(self.ids.end_date.text, "%d/%m/%y")
         except ValueError:
@@ -812,13 +817,13 @@ class ReportScreen(Screen):
             self.ids.confirm_report.background_color= (.59, .39, .23, 1)
             plt.figure(figsize=(10,5), tight_layout=True)
             sns.set(style="darkgrid")
-            chart = sns.lineplot(x="date", y="liters", data=self.info_part)
+            plt.plot(self.info_part['date'].values,
+                     self.info_part['liters'].values)
+            #chart = sns.lineplot(x="date", y="liters", data=self.info_part)
             x_ticks = self.info_part['date'].values
             x_labels = list(self.info_part['date'].values)
             plt.xticks(x_ticks, rotation='90', labels=x_labels)
             plt.savefig('.data\\partplot.png', optimize=True, quality=100)
-
-            print(x_labels)
             self.ids.plot.reload()
             self.ids.plot.source = ".data\\partplot.png"
             self.ids.plot.opacity= 1
@@ -850,10 +855,13 @@ class EditScreen(Screen):
         self.n = 0
         self.ids.info_label.text = ""
         plt.figure(figsize=(10,5), tight_layout=True)
+        ax = plt.subplot(111) 
         sns.set(style="darkgrid")
-        chart = sns.lineplot(x="date", y="liters", data=info[info['user'] == user])
+        #chart = sns.lineplot(x="date", y="liters", data=info[info['user'] == user])
+        plt.plot(info[info['user'] == user]['date'].values,
+                 info[info['user'] == user]['liters'].values)
         plt.xticks(rotation=90)
-        chart.set_title('Статистика по продаже кофе со временем')
+        ax.set_title('Статистика по продаже кофе со временем')
         plt.savefig('.data\\plot.png', optimize=True, quality=100)
         self.ids.plot.reload()
         self.ids.plot.source = ".data\\plot.png"
@@ -881,10 +889,13 @@ class EditScreen(Screen):
                 info.to_csv('.data\\info.csv', sep=';')
                 self.ids.info_label.text = ''
                 plt.figure(figsize=(10,5), tight_layout=True)
+                ax = plt.subplot(111) 
                 sns.set(style="darkgrid")
-                chart = sns.lineplot(x="date", y="liters", data=info[info['user'] == user])
+                #chart = sns.lineplot(x="date", y="liters", data=info[info['user'] == user])
+                plt.plot(info[info['user'] == user]['date'].values,
+                         info[info['user'] == user]['liters'].values)
                 plt.xticks(rotation=90)
-                chart.set_title('Статистика по продаже кофе со временем')
+                ax.set_title('Статистика по продаже кофе со временем')
                 plt.savefig('.data\\plot.png', optimize=True, quality=100)
                 self.ids.plot.reload()
                 self.ids.plot.source = ".data\\plot.png"
