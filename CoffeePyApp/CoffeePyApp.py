@@ -820,7 +820,7 @@ class ReportScreen(Screen):
 
             print(x_labels)
             self.ids.plot.reload()
-            self.ids.plot.source = "data\\partplot.png"
+            self.ids.plot.source = ".data\\partplot.png"
             self.ids.plot.opacity= 1
 
         finally:
@@ -856,7 +856,7 @@ class EditScreen(Screen):
         chart.set_title('Статистика по продаже кофе со временем')
         plt.savefig('.data\\plot.png', optimize=True, quality=100)
         self.ids.plot.reload()
-        self.ids.plot.source = "data\\plot.png"
+        self.ids.plot.source = ".data\\plot.png"
         self.ids.plot.opacity = 1
         
     def confirm_edit(self):
@@ -887,7 +887,7 @@ class EditScreen(Screen):
                 chart.set_title('Статистика по продаже кофе со временем')
                 plt.savefig('.data\\plot.png', optimize=True, quality=100)
                 self.ids.plot.reload()
-                self.ids.plot.source = "data\\plot.png"
+                self.ids.plot.source = ".data\\plot.png"
                 self.ids.plot.opacity = 1
 
     def view(self):
@@ -942,7 +942,7 @@ class EditScreen(Screen):
                 chart.set_title('Статистика по продаже кофе со временем')
                 plt.savefig('.data\\plot.png', optimize=True, quality=100)
                 self.ids.plot.reload()
-                self.ids.plot.source = "data\\plot.png"
+                self.ids.plot.source = ".data\\plot.png"
                 self.ids.plot.opacity = 1
 
 
