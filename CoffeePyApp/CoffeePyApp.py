@@ -186,7 +186,7 @@ Builder.load_string("""
             size_hint: (None, None)
             halign: 'left'
             size: self.texture_size
-            pos_hint: {'x':.75, 'y':.9}
+            pos_hint: {'x':.7, 'y':.9}
             color: (.25, .22, .19, 1)
 <AddnoteScreen>:
     on_enter:
@@ -195,9 +195,10 @@ Builder.load_string("""
         Rectangle:
             pos: self.pos
             size: self.size
-            source: '.data//fon3.png'
+            source: '.data//paper.jpg'
     FloatLayout:
         Label:
+            id: title
             text: '[color=#A6622B]Для добавления записи необходимо ввести дату и обьем проданного кофе[/color]'
             markup : True
             font_size : '20sp'
@@ -269,7 +270,7 @@ Builder.load_string("""
             size_hint: (None, None)
             halign: 'left'
             size: self.texture_size
-            pos_hint: {'x':.75, 'y':.9}
+            pos_hint: {'x':.7, 'y':.9}
             color: (.25, .22, .19, 1)
 <ReportScreen>:
     on_enter:
@@ -279,7 +280,7 @@ Builder.load_string("""
         Rectangle:
             pos: self.pos
             size: self.size
-            source: '.data//fon3.png'
+            source: '.data//paper.jpg'
     FloatLayout:
         Label:
             text: '[color=#A6622B]Отчёт[/color]'
@@ -350,7 +351,6 @@ Builder.load_string("""
             source: ''
             size_hint: (1, .48)
             pos_hint: {'x':0, 'y':.15} 
-            color: .84, .8, .79, 1
             opacity: 0
         Label:
             text: "[i][color=#3E3A37]Учебная практика - Гайдомак Мария (ИСП-925)[/color][/i]"
@@ -366,7 +366,7 @@ Builder.load_string("""
             size_hint: (None, None)
             halign: 'left'
             size: self.texture_size
-            pos_hint: {'x':.75, 'y':.9}
+            pos_hint: {'x':.7, 'y':.9}
             color: (.25, .22, .19, 1)
 
 <EditScreen>:
@@ -376,7 +376,7 @@ Builder.load_string("""
         Rectangle:
             pos: self.pos
             size: self.size
-            source: '.data//fon3.png'
+            source: '.data//paper.jpg'
     FloatLayout:
         Label:
             text: "[i][color=#3E3A37]Учебная практика - Гайдомак Мария (ИСП-925)[/color][/i]"
@@ -392,7 +392,7 @@ Builder.load_string("""
             size_hint: (None, None)
             halign: 'left'
             size: self.texture_size
-            pos_hint: {'x':.75, 'y':.9}
+            pos_hint: {'x':.7, 'y':.9}
             color: (.25, .22, .19, 1)
             bcolor: .94, .9, .87, 1
         Label:
@@ -483,7 +483,6 @@ Builder.load_string("""
             source: ''
             size_hint: (1, .5)
             pos_hint: {'x':0, 'y':.12} 
-            color: .84, .8, .79, 1
             opacity: 0
         Label:
             id: info_label
@@ -506,7 +505,7 @@ Builder.load_string("""
         Rectangle:
             pos: self.pos
             size: self.size
-            source: '.data//fon3.png'
+            source: '.data//paper.jpg'
     FloatLayout:
         Label:
             text: "[i][color=#3E3A37]Учебная практика - Гайдомак Мария (ИСП-925)[/color][/i]"
@@ -552,8 +551,8 @@ Builder.load_string("""
             background_color: (.69, .49, .33, 1)
             background_normal: ''
             background_down: '' 
-            size_hint: (.25, .05)
-            pos_hint: {'x':.25, 'y':.5}  
+            size_hint: (.18, .05)
+            pos_hint: {'x':.27, 'y':.5}  
             on_press:
                 root.delete_info(app.user, app.users, app.info, acc=True)
             on_release:
@@ -564,8 +563,8 @@ Builder.load_string("""
             background_color: (.69, .49, .33, 1)
             background_normal: ''
             background_down: '' 
-            size_hint: (.25, .05)
-            pos_hint: {'x':.52, 'y':.5}  
+            size_hint: (.27, .05)
+            pos_hint: {'x':.48, 'y':.5}  
             on_press:
                 root.delete_info(app.user, app.users, app.info)
             on_release:
@@ -585,7 +584,6 @@ Builder.load_string("""
                 root.manager.current = 'main'
         
 """)
-
 
 def press_color(button):
     button.background_normal = ''
@@ -744,6 +742,7 @@ class AddnoteScreen(Screen):
         """
         self.ids.username_label.text = f"[b]Пользователь: {user}[/b]"
         self.ids.info_label.text = ""
+        self.ids.title.text = '[color=#A6622B]Для добавления записи необходимо ввести:\nдату и обьем проданного кофе[/color]'
 
     def confirm(self, user, info):
         """
@@ -1041,3 +1040,4 @@ class CoffeeApp(App):
 
 if __name__ == "__main__":
     CoffeeApp().run()
+
