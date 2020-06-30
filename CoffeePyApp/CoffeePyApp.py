@@ -42,24 +42,36 @@ Builder.load_string("""
             pos_hint: {'x':.2, 'y':.15} 
         Button:
             id: enter_button
-            size_hint: (.22, .08)
-            pos_hint: {'x':.24, 'y':.3}
+            size_hint: (.21, .08)
+            pos_hint: {'x':.255, 'y':.3}
             text: 'Войти'
             background_color: (.94, .66, .39, 1)
             background_normal: ''
             background_down: ''
+            canvas.before:
+                Color:
+                    rgba: .9, .8, .7, 1
+                Line:
+                    width: 1.5
+                    rectangle: self.x, self.y, self.width, self.height
             on_press: 
                 app.user=root.log_in(app.users, app.user)
             on_release:
                 root.release()  
         Button:
             id: register_button
-            size_hint: (.3, .08)
-            pos_hint: {'x':.47, 'y':.3}
+            size_hint: (.26, .08)
+            pos_hint: {'x':.48, 'y':.3}
             text: 'Зарегистироваться'
             background_color: (.94, .66, .39, 1)
             background_normal: ''
             background_down: ''
+            canvas.before:
+                Color:
+                    rgba: .9, .8, .7, 1
+                Line:
+                    width: 1.5
+                    rectangle: self.x, self.y, self.width, self.height
             on_press: 
                 root.register(app.users, app.user)
             on_release:
@@ -101,7 +113,7 @@ Builder.load_string("""
         Rectangle:
             pos: self.pos
             size: self.size
-            source: '.data//fon2.png'
+            source: '.data//coffee.jpg'
     FloatLayout:
         Button:
             id: addnote_button
@@ -165,13 +177,6 @@ Builder.load_string("""
             font_size: '14sp'
             size_hint: (.5, .05)
             pos_hint: {'x':.25, 'y':.1}
-            bcolor: .94, .9, .87, 1
-            canvas.before:
-                Color:
-                    rgba: self.bcolor
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
         Label:
             id: username_label
             text: "[b]Пользователь: [/b]"
@@ -182,14 +187,6 @@ Builder.load_string("""
             size: self.texture_size
             pos_hint: {'x':.75, 'y':.9}
             color: (.25, .22, .19, 1)
-            bcolor: .94, .9, .87, 1
-            canvas.before:
-                Color:
-                    rgba: self.bcolor
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-
 <AddnoteScreen>:
     on_enter:
         root.enter_screen(app.user)
