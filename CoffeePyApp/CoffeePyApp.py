@@ -1030,7 +1030,7 @@ class CoffeeApp(App):
         self.title = 'Coffee Company'
         self.icon = '.data\\myicon.png'
         Window.clearcolor = (.94, .82, .75, 1)
-        Window.size = (900, 700)
+        Window.size = (1024, 576)
         self.user = ''
         self.users = pd.read_csv('.data\\users.csv', sep=';', index_col=[0])
         self.info = pd.read_csv('.data\\info.csv', sep=';', index_col=[0])
