@@ -199,7 +199,7 @@ Builder.load_string("""
     FloatLayout:
         Label:
             id: title
-            text: '[color=#A6622B]Для добавления записи необходимо ввести дату и обьем проданного кофе[/color]'
+            text: '[color=#A6622B]Для добавления записи необходимо ввести дату и объем проданного кофе[/color]'
             markup : True
             font_size : '20sp'
             size_hint: (1, .1)
@@ -220,7 +220,7 @@ Builder.load_string("""
             pos_hint:{'x':.2, 'y':.6}
             multiline:False  
         Label:
-            text: '[color=#A6622B]Обьем:[/color]'
+            text: '[color=#A6622B]Объем:[/color]'
             markup : True
             font_size : '18sp'
             size_hint: (None, None)
@@ -275,7 +275,6 @@ Builder.load_string("""
 <ReportScreen>:
     on_enter:
         root.enter_screen(app.user)
-
     canvas.before:
         Rectangle:
             pos: self.pos
@@ -490,7 +489,7 @@ Builder.load_string("""
             markup: True
             font_size: '16sp'
             size_hint: (.6, .1)
-            pos_hint: {'x':.2, 'y':.015} 
+            pos_hint: {'x':.2, 'y':.01} 
         Button:
             text: 'Назад'
             size_hint: (.1, .05)
@@ -742,7 +741,7 @@ class AddnoteScreen(Screen):
         """
         self.ids.username_label.text = f"[b]Пользователь: {user}[/b]"
         self.ids.info_label.text = ""
-        self.ids.title.text = '[color=#A6622B]Для добавления записи необходимо ввести:\nдату и обьем проданного кофе[/color]'
+        self.ids.title.text = '[color=#A6622B]Для добавления записи необходимо ввести:\nдату и объем проданного кофе[/color]'
 
     def confirm(self, user, info):
         """
@@ -763,17 +762,17 @@ class AddnoteScreen(Screen):
             else:
                 try:
                     self.index = info[(info['user'] == user) & (info['date'] == self.date)].index[0]
-                    self.ids.info_label.text = '[color=#DD1B07]Запись с данной датой уже существует\nНовый объем ' \
-                                               'будет прибавлен к записанному ранее[/color] '
                 except IndexError:
                     self.last_index = info.count()[0]
                     info.loc[self.last_index] = {'user': user, 'date': self.date, 'liters': float(self.ids.liters.text)}
                     info.to_csv('.data\\info.csv', sep=';')
-                    self.ids.info_label.text = ""
+                    self.ids.info_label.text = "[color=#3E3A37]Добавлена запись:  дата - {},  объем - {}[/color]".format(self.date, self.ids.liters.text)
 
                 else:
                     self.liters = float(info.loc[self.index, 'liters'])
                     self.liters += float(self.ids.liters.text)
+                    self.ids.info_label.text = '[color=#DD1B07]Запись с данной датой уже существует.\nНовый объем ' \
+                                               'будет прибавлен к записанному ранее[/color][color=#3E3A37]\nДата - {},  объем - {}[/color]'.format(self.date, self.liters)
                     info.loc[self.index, 'liters'] = self.liters
                     info.to_csv('.data\\info.csv', sep=';')
 
