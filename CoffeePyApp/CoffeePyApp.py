@@ -756,8 +756,7 @@ class AddnoteScreen(Screen):
         else:
             self.ids.info_label.text = ''
             self.date = self.date.strftime("%d/%m/%y")
-            if self.ids.liters.text == '':
-
+            if self.ids.liters.text == '' or self.ids.liters.text == '.':
                 self.ids.info_label.text = '[color=#DD1B07]Введите объем[/color]'
             else:
                 try:
@@ -772,7 +771,8 @@ class AddnoteScreen(Screen):
                     self.liters = float(info.loc[self.index, 'liters'])
                     self.liters += float(self.ids.liters.text)
                     self.ids.info_label.text = '[color=#DD1B07]Запись с данной датой уже существует.\nНовый объем ' \
-                                               'будет прибавлен к записанному ранее[/color][color=#3E3A37]\nДата - {},  объем - {}[/color]'.format(self.date, self.liters)
+                                               'будет прибавлен к записанному ранее[/color][color=#3E3A37]' \
+                                               '\nДата - {},  объем - {}[/color]'.format(self.date, self.liters)
                     info.loc[self.index, 'liters'] = self.liters
                     info.to_csv('.data\\info.csv', sep=';')
 
@@ -881,11 +881,14 @@ class EditScreen(Screen):
         """
         restore_color(self.ids.confirm_edit)
         if self.check_date(user, info):
-            info.loc[self.index, 'liters'] = float(self.ids.liters.text)
-            self.ids.liters_info.text = self.ids.liters.text
-            info.to_csv('.data\\info.csv', sep=';')
-            self.ids.info_label.text = ''
-            plot(df=info[info['user'] == user], img=self.ids.plot, title=True)
+            if self.ids.liters.text == '' or self.ids.liters.text == '.':
+                self.ids.info_label.text = '[color=#DD1B07]Введите объем[/color]'
+            else:
+                info.loc[self.index, 'liters'] = float(self.ids.liters.text)
+                self.ids.liters_info.text = self.ids.liters.text
+                info.to_csv('.data\\info.csv', sep=';')
+                self.ids.info_label.text = ''
+                plot(df=info[info['user'] == user], img=self.ids.plot, title=True)
 
     def view(self, user, info):
         """

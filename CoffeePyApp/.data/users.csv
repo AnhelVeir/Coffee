@@ -1,7 +1,2 @@
 index;user;pass
-0;user;user
-1;masya;root
-2;user1;user1
-3;test1;test
-4;first_user;first
-5;test_user;test
+0;test_user;password
