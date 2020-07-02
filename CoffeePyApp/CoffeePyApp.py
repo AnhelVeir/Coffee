@@ -798,20 +798,6 @@ class ReportScreen(Screen):
         self.ids.plot.source = ""
         self.ids.plot.opacity = 0
 
-    def sort_df(self, df):
-        """
-        Принимает df, сортирует по столбцу 'date'
-        :return: None
-        """
-        df['date'] = df['date'].apply(lambda x: datetime.strptime(x, "%d/%m/%y"))
-        df = df.sort_values(by=['date'])
-        df['date'] = df['date'].apply(lambda x: x.strftime("%d/%m/%y"))
-        df = df.reset_index()
-        del df['index']
-        df.index.name = 'index'
-        df.to_csv('.data\\info.csv', sep=';')
-        return df
-
     def give_report(self, user, info):
         """
         Вывод кол-ва проданного кофе за данный промежуток времени.
