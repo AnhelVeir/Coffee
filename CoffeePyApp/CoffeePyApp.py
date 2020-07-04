@@ -1,8 +1,10 @@
+from kivy.config import Config
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 from kivy.uix.textinput import TextInput
+from kivy.uix.dropdown import DropDown
 from datetime import datetime
 import pandas as pd
 import re
@@ -12,6 +14,7 @@ import seaborn as sns
 
 Builder.load_string("""
 #:import SlideTransition kivy.uix.screenmanager.FadeTransition
+#:import Factory kivy.factory.Factory
 
 <LoginScreen>:
     canvas.before:
@@ -140,13 +143,10 @@ Builder.load_string("""
                 root.goto_edit()
         Button:
             id: report_button
-            pos_hint: {'x':.2, 'y':.6}
-            background_color: (.69, .49, .33, 1)
-            background_normal: ''
+            pos_hint: {'x':.55, 'y':.6}
             text: 'Посмотреть отчёт'
             font_size : '20sp'
             size_hint: (.25, .1)
-            pos_hint: {'x':.55, 'y':.6}
             background_color: (.69, .49, .33, 1)
             background_normal: ''
             background_down: ''
@@ -154,9 +154,6 @@ Builder.load_string("""
                 root.goto_report()
         Button:
             id: delete_button
-            pos_hint: {'x':.2, 'y':.6}
-            background_color: (.69, .49, .33, 1)
-            background_normal: ''
             text: 'Удалить аккаунт'
             font_size : '20sp'
             size_hint: (.25, .1)
@@ -188,7 +185,111 @@ Builder.load_string("""
             size: self.texture_size
             pos_hint: {'x':.7, 'y':.9}
             color: (.25, .22, .19, 1)
+
+<CustomDropdown@DropDown>:
+    id: dropdown
+    on_select:
+        app.root.current_screen.ids.date.text = '{}'.format(args[1])
+        self.dismiss()
+    Button:
+        id: btn1
+        text: '01/01/20'
+        size_hint_y: None
+        height: '40dp'
+        background_color: (.59, .59, .59, 1)
+        background_normal: ''
+        background_down: ''
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Line:
+                width: 2
+                rectangle: self.x, self.y, self.width, self.height
+        on_release:
+            dropdown.select(btn1.text)
+    Button:
+        id: btn2
+        text: '01/02/20'
+        size_hint_y: None
+        height: '40dp'
+        background_color: (.59, .59, .59, 1)
+        background_normal: ''
+        background_down: ''
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Line:
+                width: 1.5
+                rectangle: self.x, self.y, self.width, self.height
+        on_release:
+            dropdown.select(btn2.text)            
+    Button:
+        id: btn3
+        text: '01/03/20'
+        size_hint_y: None
+        height: '40dp'
+        background_color: (.59, .59, .59, 1)
+        background_normal: ''
+        background_down: ''
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Line:
+                width: 1.5
+                rectangle: self.x, self.y, self.width, self.height
+        on_release:
+            dropdown.select(btn3.text)
+    Button:
+        id: btn4
+        text: '01/04/20'
+        size_hint_y: None
+        height: '40dp'
+        background_color: (.59, .59, .59, 1)
+        background_normal: ''
+        background_down: ''
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Line:
+                width: 1.5
+                rectangle: self.x, self.y, self.width, self.height
+        on_release:
+            dropdown.select(btn4.text) 
+    Button:
+        id: btn5
+        text: '01/05/20'
+        size_hint_y: None
+        height: '40dp'
+        background_color: (.59, .59, .59, 1)
+        background_normal: ''
+        background_down: ''
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Line:
+                width: 1.5
+                rectangle: self.x, self.y, self.width, self.height
+        on_release:
+            dropdown.select(btn5.text) 
+    Button:
+        id: btn6
+        text: '01/06/20'
+        size_hint_y: None
+        height: '40dp'
+        background_color: (.59, .59, .59, 1)
+        background_normal: ''
+        background_down: ''
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Line:
+                width: 1.5
+                rectangle: self.x, self.y, self.width, self.height
+        on_release:
+            dropdown.select(btn6.text) 
+
 <AddnoteScreen>:
+    id: addnotescreen
     on_enter:
         root.enter_screen(app.user)
     canvas.before:
@@ -212,13 +313,27 @@ Builder.load_string("""
             size_hint: (None, None)
             halign: 'left'
             size: self.texture_size
-            pos_hint: {'x':.2, 'y':.65}
+            pos_hint: {'x':.3, 'y':.65}
         DataInput:
             id: date
             text: '01/01/20'
-            size_hint:(.6, .05)
-            pos_hint:{'x':.2, 'y':.6}
-            multiline:False  
+            size_hint:(.4, .05)
+            pos_hint:{'x':.3, 'y':.6}
+            multiline:False
+        Button:
+            id: btn
+            text: 'V'
+            size_hint:(.1, .06)
+            pos_hint:{'x':.71, 'y':.595}
+            background_color: (.69, .69, .69, 1)
+            background_normal: ''
+            background_down: ''
+            on_press:
+                root.dropdown_press()
+            on_release: 
+                Factory.CustomDropdown().open(self)
+                root.dropdown_release()
+
         Label:
             text: '[color=#A6622B]Объем:[/color]'
             markup : True
@@ -226,17 +341,17 @@ Builder.load_string("""
             size_hint: (None, None)
             halign: 'left'
             size: self.texture_size
-            pos_hint: {'x':.2, 'y':.55}  
+            pos_hint: {'x':.3, 'y':.55}  
         FloatInput:
             id: liters
             text: '0.0'
-            size_hint:(.6, .05)
-            pos_hint:{'x':.2, 'y':.5}
+            size_hint:(.4, .05)
+            pos_hint:{'x':.3, 'y':.5}
             multiline:False  
         Button:
             id: confirm_button
-            size_hint: (.5, .1)
-            pos_hint: {'x':.25, 'y':.3}
+            size_hint: (.4, .1)
+            pos_hint: {'x':.3, 'y':.3}
             text: 'Подтвердить'
             on_press: 
                 root.confirm(app.user, app.info)
@@ -743,6 +858,11 @@ class AddnoteScreen(Screen):
         self.ids.info_label.text = ""
         self.ids.title.text = '[color=#A6622B]Для добавления записи необходимо ввести:\nдату и объем проданного кофе[/color]'
 
+    def dropdown_press(self):
+        self.ids.btn.background_color = (.49, .49, .49, 1)
+    def dropdown_release(self):
+        self.ids.btn.background_color = (.69, .69, .69, 1)
+
     def confirm(self, user, info):
         """
         Добавление записи в бд.
@@ -1012,15 +1132,16 @@ sm.add_widget(ReportScreen(name='report'))
 sm.add_widget(EditScreen(name='edit'))
 sm.add_widget(DeleteScreen(name='del'))
 
-
 class CoffeeApp(App):
 
     def build(self):
+        Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
         self.title = 'Coffee Company'
         self.icon = '.data\\myicon.png'
         Window.clearcolor = (.94, .82, .75, 1)
         Window.size = (1024, 576)
         self.user = ''
+        self.date = '01/01/20'
         self.users = pd.read_csv('.data\\users.csv', sep=';', index_col=[0])
         self.info = pd.read_csv('.data\\info.csv', sep=';', index_col=[0])
         return sm
