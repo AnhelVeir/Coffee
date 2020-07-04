@@ -330,7 +330,7 @@ Builder.load_string("""
             background_down: ''
             on_press:
                 root.dropdown_press()
-            on_release: 
+            on_release:
                 Factory.CustomDropdown().open(self)
                 root.dropdown_release()
 
@@ -860,8 +860,10 @@ class AddnoteScreen(Screen):
 
     def dropdown_press(self):
         self.ids.btn.background_color = (.49, .49, .49, 1)
+        self.ids.btn.background_down =  ''
     def dropdown_release(self):
         self.ids.btn.background_color = (.69, .69, .69, 1)
+        self.ids.btn.background_down = ''
 
     def confirm(self, user, info):
         """
@@ -1141,7 +1143,6 @@ class CoffeeApp(App):
         Window.clearcolor = (.94, .82, .75, 1)
         Window.size = (1024, 576)
         self.user = ''
-        self.date = '01/01/20'
         self.users = pd.read_csv('.data\\users.csv', sep=';', index_col=[0])
         self.info = pd.read_csv('.data\\info.csv', sep=';', index_col=[0])
         return sm
